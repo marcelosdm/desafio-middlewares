@@ -38,11 +38,20 @@ function checksCreateTodosUserAvailability(request, response, next) {
 }
 
 function checksTodoExists(request, response, next) {
-  // Complete aqui
 }
 
 function findUserById(request, response, next) {
-  // Complete aqui
+  const { id } = request.params;
+
+  const userExists = users.find((user) => user.id === id);
+
+  if (!userExists) {
+    return response.status(404).json({ error: "User not found" });
+  }
+
+  request.user = userExists;
+  
+  return next();
 }
 
 app.post("/users", (request, response) => {
